@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Η PR Εταιρεία σας</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #fff;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+      color: #0078d4;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    nav a {
+      color: #666;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .hero {
+      background: linear-gradient(135deg, #4b6cb7, #182848);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 2rem;
+      border-radius: 15px;
+      margin: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hero-text {
+      max-width: 50%;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+    }
+    .hero button {
+      background: #fff;
+      color: #333;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .section {
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+    .about, .services, .portfolio {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%234b6cb7' fill-opacity='1' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,213.3C960,224,1056,192,1152,181.3C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+      background-size: cover;
+    }
+    .about-content {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .about-content {
+        flex-direction: column;
+      }
+    }
+    .about-image {
+      width: 40%;
+      background: #e0e7ff;
+      border-radius: 15px;
+      height: 300px;
+      margin-right: 2rem;
+    }
+    .about-text, .services-text {
+      max-width: 50%;
+      text-align: left;
+    }
+    .contact {
+      background: #f4f4f4;
+      padding: 2rem;
+    }
+    .contact a {
+      color: #0078d4;
+      text-decoration: none;
+    }
+    .portfolio-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    .portfolio-content h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #333;
+    }
+    .media {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .image-container {
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 4/5;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      flex: 1 1 300px;
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    @media (max-width: 768px) {
+      .media {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    #accessibility-widget-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #0078d4;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 10000;
+      border: 2px solid white;
+    }
+    #accessibility-widget-toggle:hover {
+      background-color: #005a9e;
+    }
+    #accessibility-panel {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 280px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      padding: 20px;
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid #ccc;
+    }
+    #accessibility-panel.active {
+      display: flex;
+    }
+    #accessibility-panel h4 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    .accessibility-button {
+      background-color: #f0f0f0;
+      color: #333;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+    .accessibility-button:hover, .accessibility-button:focus {
+      background-color: #e0e0e0;
+      outline: 2px solid #0078d4;
+    }
+    .accessibility-button i {
+      margin-right: 8px;
+      width: 20px;
+    }
+    body.high-contrast-mode {
+      background-color: #000000 !important;
+      color: #FFFF00 !important;
+    }
+    body.high-contrast-mode header,
+    body.high-contrast-mode .hero,
+    body.high-contrast-mode .about,
+    body.high-contrast-mode .services,
+    body.high-contrast-mode .portfolio,
+    body.high-contrast-mode .contact,
+    body.high-contrast-mode #accessibility-panel {
+      background-color: #1a1a1a !important;
+      color: #FFFF00 !important;
+    }
+    body.high-contrast-mode a,
+    body.high-contrast-mode .hero button {
+      color: #00FFFF !important;
+    }
+    body.high-contrast-mode .hero button {
+      background-color: #FFFF00 !important;
+      color: #000000 !important;
+    }
+  </style>
+</head>
+<body>
+  <button id="accessibility-widget-toggle" aria-label="Άνοιγμα Πίνακα Προσβασιμότητας" aria-expanded="false" aria-controls="accessibility-panel">♿</button>
+  <div id="accessibility-panel" role="dialog" aria-modal="true" aria-labelledby="accessibility-panel-title">
+    <h4 id="accessibility-panel-title">Επιλογές Προσβασιμότητας</h4>
+    <button id="increase-text" class="accessibility-button"><span aria-hidden="true">🔍</span> Αύξηση Μέγεθος Κειμένου</button>
+    <button id="decrease-text" class="accessibility-button"><span aria-hidden="true">🔍</span> Μείωση Μέγεθος Κειμένου</button>
+    <button id="reset-text" class="accessibility-button"><span aria-hidden="true">🔄</span> Επαναφορά Μέγεθος Κειμένου</button>
+    <button id="toggle-contrast" class="accessibility-button"><span aria-hidden="true">🌗</span> Εναλλαγή Υψηλής Αντίθεσης</button>
+    <button id="close-accessibility-panel" class="accessibility-button" style="margin-top: 10px; background-color: #f87171; color:white;"><span aria-hidden="true">✖</span> Κλείσιμο Πίνακα</button>
+  </div>
+
+  <header>
+    <div class="logo">Social Media P.R.</div>
+    <nav>
+      <a href="#home">Αρχική</a>
+      <a href="#about">Σχετικά με Εμάς</a>
+      <a href="#services">Υπηρεσίες</a>
+      <a href="#portfolio">Πορτφόλιο</a>
+      <a href="#contact">Επικοινωνία</a>
+    </nav>
+  </header>
+
+<section id="home" class="hero">
+    <img src="logoImage.jpg" alt="Logo Image" class="hero-image">
+    <div class="hero-text">
+      <h1>ΑΝΥΨΩΣΗ ΜΑΡΚΩΝ, ΔΙΑΜΟΡΦΩΣΗ ΑΝΤΙΛΗΨΕΩΝ</h1>
+      <p>Στη σημερινή ψηφιακή εποχή, η αυθεντική σύνδεση με τους πελάτες σας δεν είναι απλώς μια επιλογή, είναι ανάγκη... Εδώ ερχόμαστε εμείς. Ειδικευόμαστε στη δημιουργία αυθεντικού online περιεχομένου και στην στρατηγική προώθηση μέσω των social media (Social Media Marketing), με μοναδικό σκοπό την ενίσχυση της παρουσίας και της εικόνας (branding) της επιχείρησής σας.</p>
+      <p>Γιατί Social Media Marketing; Επειδή σας φέρνει πιο κοντά στο κοινό σας με τρόπο άμεσο και ουσιαστικό.</p>
+      <button onclick="location.href='#services'">Μάθετε περισσότερα για τις υπηρεσίες μας</button>
+    </div>
+</section>
+
+<style>
+.hero {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+  color: #fff;
+  text-align: center;
+  padding: 5rem 2rem;
+  border-radius: 15px;
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.hero-text {
+  max-width: 50%;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.hero button {
+  background: #fff;
+  color: #333;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+  .hero-image {
+    max-width: 100%;
+  }
+  .hero-text {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+</style>
+
+  <section id="about" class="section about">
+    <h2>Σχετικά με Εμάς</h2>
+    <div class="about-content">
+      <img src="about.png" alt="Εικόνα της ομάδας μας" class="about-image">
+      <div class="about-text">
+        <p>Στη σημερινή ψηφιακή εποχή, η αυθεντική σύνδεση με τους πελάτες σας γίνεται συνέχεια όλο και πιο επιτακτική στην σύγχρονη κοινωνία. Οι παραδοσιακές μέθοδοι προώθησης και διαφήμισης έχουν αρχίσει να χάνουν την αποτελεσματικότητά τους γιατί είναι απρόσωπες, ενώ ταυτόχρονα το κόστος τους είναι πολλές φορές απαγορευτικό. Παρόλα αυτά σήμερα, οι ψηφιακές τεχνολογίες και κυρίως η αμεσότητα που προσφέρουν τα social media, μας δίνουν την ευκαιρία να φτάσουμε τους πελάτες άμεσα...</p>
+        <p><strong>Η Φιλοσοφία μας: Εσείς στο Επίκεντρο</strong> Πιστεύουμε ότι ο πιο αποτελεσματικός τρόπος προώθησης είναι να γίνετε εσείς ο βασικός 'πρωταγωνιστής' του περιεχομένου σας. Στόχος μας είναι να αναδείξουμε την μοναδικότητά σας και να καλλιεργήσουμε αυθεντικές σχέσεις μεταξύ εσάς και του κοινού σας, πέρα από μια απλή εμπορική συναλλαγή...</p>
+        <p>Η εταιρεία ουσιαστικά εκμεταλλεύεται το ρεύμα προώθησης μέσω των social media και χρησιμοποιώντας σαν πρωταρχικό πλεονέκτημα την εξειδίκευσής της στις <strong>δημόσιες σχέσεις</strong> και την διαφήμιση προσφέρει μια προσαρμοσμένη υπηρεσία προώθησης. Παντρεύει την αμεσότητα και οικειότητα που χαρακτηρίζουν τα social media με την στόχευση που προκύπτει από τον στρατηγικό σχεδιασμό ανάπτυξης 'εικόνας' (Branding).</p>
+      </div>
+    </div>
+</section>
+
+<style>
+.about-image {
+  width: 100%; /* Makes the image responsive */
+  max-width: 400px; /* Limits the maximum width */
+  height: auto; /* Maintains aspect ratio */
+  border-radius: 15px; /* Keeps the rounded corners */
+}
+</style>
+
+ 
+
+  <section id="services" class="section services">
+    <h2>Υπηρεσίες</h2>
+    <div class="services-content">
+      <div class="services-text">
+        <p><strong>Οι Υπηρεσίες μας:</strong> Αξιοποιώντας την εξειδίκευσή μας στις δημόσιες σχέσεις και τη διαφήμιση, προσφέρουμε ολοκληρωμένες και προσαρμοσμένες υπηρεσίες για να αναπτύξετε την παρουσία σας στα social media:</p>
+        <ul>
+          <li><strong>Ανάπτυξη Προφίλ:</strong> Δημιουργούμε ή ενισχύουμε το προφίλ της επιχείρησής σας από το μηδέν.</li>
+          <li><strong>Δημιουργία Περιεχομένου:</strong> Μετατρέπουμε τα χαρακτηριστικά και τις αξίες σας σε ελκυστικά γραπτά κείμενα.</li>
+          <li><strong>Στρατηγικός Σχεδιασμός:</strong> Αναπτύσσουμε προσαρμοσμένα σχέδια για παραγωγή φωτογραφικού και βίντεο υλικού, βελτιστοποιημένα για κάθε πλατφόρμα (Instagram, Facebook, Twitter, TikTok, YouTube).</li>
+          <li><strong>Παραγωγή Υλικού:</strong> Αναλαμβάνουμε την πλήρη εκτέλεση και παραγωγή του απαραίτητου περιεχομένου.</li>
+        </ul>
+        <p>Ο πελάτης της επιχείρησης θα έχει την ευκαιρία να αναπτύξει την αναγνωσιμότητά του, αλλά κυρίως να δημιουργήσει πιο στενή επαφή με τους υπάρχοντες και νέους πελάτες του... Το κόστος για τον πελάτη παραμένει χαμηλό χωρίς να θυσιάζεται η αποτελεσματικότητα των ενεργειών.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section portfolio">
+    <h2>Social Media Ενδεικτικό Πορτφόλιο Video</h2>
+    <div class="portfolio-content">
+      <div>
+        <h3>Instagram TikTok Youtube</h3>
+        <div class="media">
+          <a href="https://www.instagram.com/p/C5eSA6tIlow/" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="amerikaniki.png" alt="Instagram Post 1" class="placeholder">
+            </div>
+          </a>
+          <a href="https://www.instagram.com/p/C6TOhMEoOCE/" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="tapgpromome.png" alt="Instagram Post 2" class="placeholder">
+            </div>
+          </a>
+          <a href="https://www.instagram.com/p/C638vf0IlK2/" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="barber.png" alt="Instagram Post 3" class="placeholder">
+            </div>
+          </a>
+          <a href="https://www.tiktok.com/@tapg.gr/video/7392313032312999200" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="infoplate.png" alt="TikTok Video 1" class="placeholder">
+            </div>
+          </a>
+          <a href="https://www.instagram.com/p/CpArG58oqOE/" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="carnvivalsmall.png" alt="Instagram Post 4" class="placeholder">
+            </div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=sI5R2M3Dr-A" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="driftpart2022.png" alt="YouTube Video 1" class="placeholder">
+            </div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=Vxb56FcTp_k" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="carnivalday2.png" alt="YouTube Video 2" class="placeholder">
+            </div>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3>Φωτογράφιση Προϊόντων</h3>
+        <div class="media">
+          <a href="https://tapg.gr/collections/google-review/products/tapg-google-review-card" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="fotogrtapg1.png" alt="Φωτογράφηση Προϊόντων 1" class="placeholder">
+            </div>
+          </a>
+          <a href="https://tapg.gr/collections/google-review/products/tapg-google-review-stand" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="fotogrtapg2.png" alt="Φωτογράφηση Προϊόντων 2" class="placeholder">
+            </div>
+          </a>
+          <a href="https://tapg.gr/collections/google-review/products/tapg-google-review-black-plate-sticker" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="fotogrtapg3.png" alt="Φωτογράφηση Προϊόντων 3" class="placeholder">
+            </div>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3>Ανάπτυξη Προϊόντων Social Media και Design</h3>
+        <div class="media">
+          <a href="https://tapg.gr/products/tapg-infoplate" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="infoplae.png" alt="Ανάπτυξη Προϊόντων 1" class="placeholder">
+            </div>
+          </a>
+          <a href="/carnival_original_cosmoradio_full.png" target="_blank" rel="noopener noreferrer">
+            <div class="image-container">
+              <img src="carnival_original_cosmoradio_full.png" alt="Ανάπτυξη Προϊόντων 2" class="placeholder">
+            </div>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h3>Προωθητικό Υλικό και Κάλυψη Event</h3>
+        <div class="media">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/fqWJv-mMjGs" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/watch?v=bStKQ9pQyFU" frameborder="0" allowfullscreen></iframe>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <h2>Επικοινωνία</h2>
+    <p>Επικοινωνήστε μαζί μας για να ανακαλύψετε πώς μπορούμε να βοηθήσουμε την επιχείρησή σας να αναπτύξει ισχυρές και διαρκείς σχέσεις με το κοινό της στον κόσμο των social media!</p>
+    <p>Email: <a href="mailto:chrysikos_den@hotmail.com">chrysikos_den@hotmail.com</a></p>
+    <p>Τηλέφωνο: <a href="tel:+30231550731">231 550 731</a></p>
+    <p>Διεύθυνση: Φρίξου 5, Θεσσαλονίκη 546 27</p>
+    
+  </section>
+
+  <script>
+    const accessibilityToggle = document.getElementById('accessibility-widget-toggle');
+    const accessibilityPanel = document.getElementById('accessibility-panel');
+    const closePanelButton = document.getElementById('close-accessibility-panel');
+    let initialFontSize = window.getComputedStyle(document.body).fontSize;
+    let currentMultiplier = 1;
+
+    function openAccessibilityPanel() {
+      accessibilityPanel.classList.add('active');
+      accessibilityToggle.setAttribute('aria-expanded', 'true');
+      document.getElementById('increase-text').focus();
+    }
+
+    function closeAccessibilityPanel() {
+      accessibilityPanel.classList.remove('active');
+      accessibilityToggle.setAttribute('aria-expanded', 'false');
+      accessibilityToggle.focus();
+    }
+
+    accessibilityToggle.addEventListener('click', () => {
+      if (accessibilityPanel.classList.contains('active')) {
+        closeAccessibilityPanel();
+      } else {
+        openAccessibilityPanel();
+      }
+    });
+
+    closePanelButton.addEventListener('click', closeAccessibilityPanel);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && accessibilityPanel.classList.contains('active')) {
+        closeAccessibilityPanel();
+      }
+    });
+
+    document.getElementById('increase-text').addEventListener('click', () => {
+      currentMultiplier += 0.1;
+      document.body.style.fontSize = `calc(${initialFontSize} * ${currentMultiplier})`;
+    });
+
+    document.getElementById('decrease-text').addEventListener('click', () => {
+      if (currentMultiplier > 0.7) {
+        currentMultiplier -= 0.1;
+        document.body.style.fontSize = `calc(${initialFontSize} * ${currentMultiplier})`;
+      }
+    });
+
+    document.getElementById('reset-text').addEventListener('click', () => {
+      currentMultiplier = 1;
+      document.body.style.fontSize = initialFontSize;
+    });
+
+    document.getElementById('toggle-contrast').addEventListener('click', () => {
+      document.body.classList.toggle('high-contrast-mode');
+    });
+  </script>
+</body>
+</html>
